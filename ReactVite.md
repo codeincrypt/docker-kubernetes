@@ -3,6 +3,8 @@
 # React (CRA)
 Deploy React project in Docker
 
+## Docker
+
 ### Step — 1
 Write a Dockerfile
 ```
@@ -75,16 +77,18 @@ The default docker images will show all top level images, their repository and t
 ```
 docker images
 ```
-
+## Kubernetes
 ### Step — 3
-Push Your Docker Image to a Container Registry
+**Build & Push Docker Image**
 
-Tag your image (replace YOUR_DOCKERHUB_USERNAME with your username)
+Build the Docker image. Example command: ```docker build -t karthik/ecommerce```
 ```
-docker tag my-react-vite-app YOUR_DOCKERHUB_USERNAME/my-react-vite-app:latest
+docker build -t username/project .
+```
 
-# Push the image
-docker push YOUR_DOCKERHUB_USERNAME/my-react-vite-app:latest
+Push the Image to Docker Hub (after login). Example command: ```docker push karthik/ecommerce```
+```
+docker push username/project
 ```
 
 ### Step — 4
@@ -155,8 +159,33 @@ kubectl get services
 ```
 
 **Minikube**
+
 If using a cloud provider, your service may get an external IP address. For local clusters like Minikube, you might use:
 
+
+If using Minikube, run:
 ```
-minikube service react-vite-service
+minikube service <SERVICE_NAME>
+```
+
+If using a Cloud Kubernetes Cluster, get the external IP:
+```
+kubectl get svc <SERVICE_NAME>
+```
+
+
+### Delete your Kubernetes deployments, pods, and services
+Delete a Specific Deployment
+```
+kubectl delete deployment <PROJECT_NAME>
+```
+
+Delete a Specific Pod
+```
+kubectl delete pod <POD_NAME>
+```
+
+Delete a Specific Service
+```
+kubectl delete service <SERVICE_NAME>
 ```
