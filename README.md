@@ -15,10 +15,16 @@ Instructions for installing Docker and Kubernetes
 
 Guide for deploying React applications (both CRA and Vite) using Docker and Kubernetes.
 
-[View Detailed Guide](https://github.com/codeincrypt/docker-kubernetes/blob/main/React.md)
+[View Detailed Guide](https://github.com/codeincrypt/docker-kubernetes/blob/main/react-dockerhub-k8.md)
 
 
 ## Node Js
 Guide for deploying Node.js applications using Docker and Kubernetes. 
 
 [View Detailed Guide](https://github.com/codeincrypt/docker-kubernetes/blob/main/NodeJs.md)
+
+
+## API on AWS ECR EKS Kubernetes
+Guide for deploying API applications using Docker and Kubernetes on AWS ECR EKS. 
+
+[View Detailed Guide](https://github.com/codeincrypt/docker-kubernetes/blob/main/api-aws-ecr-k8.md)

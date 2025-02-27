@@ -1,38 +1,24 @@
-# React (CRA & Vite)
-Deploy React projects (Create React App & Vite) using Docker and Kubernetes.
+# React (Vite)
+Deploy React projects (React Vite App) using Docker and Kubernetes.
 
 ## Docker Setup
 
 ### Step 1: Development & Production Dockerfile
 Create a Dockerfile in the root of your project:
 
-#### Create React App (CRA)
+#### React Vite
+
 Development Dockerfile:
 ```dockerfile
-FROM node:18
+FROM node:18-alpine
 WORKDIR /app
-COPY package*.json ./
+COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
 ```
 
-Production Dockerfile:
-```dockerfile
-FROM node:18 AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-#### Vite
 Production Dockerfile:
 ```dockerfile
 FROM node:18-alpine AS builder
@@ -73,16 +59,18 @@ docker run -d -p 3000:80 projectname
 List docker containers:
 ```sh
 docker container list
+# or
+docker ps -a
 ```
 
 ---
 ### Manage Docker Containers & Images
 
-#### Stop a Container
+#### Stop the running docker container
 ```sh
 docker container stop <CONTAINER_ID>
 ```
-#### Start a Container
+#### Start a docker container
 ```sh
 docker container start <CONTAINER_ID>
 ```
@@ -90,6 +78,8 @@ docker container start <CONTAINER_ID>
 #### Remove a Container
 ```sh
 docker container rm <CONTAINER_ID>
+# or 
+docker rm <CONTAINER_ID>
 ```
 
 #### Remove a Docker Image
@@ -97,7 +87,7 @@ docker container rm <CONTAINER_ID>
 docker rmi <USERNAME>/ecommerce
 ```
 
-## Kubernetes
+## Kubernetes (Docker Hub)
 
 ### Step 3: Build & Push Docker Image
 ```sh
@@ -159,7 +149,8 @@ kubectl cluster-info
 
 #### Apply the Deployment and Service
 ```sh
-kubectl apply -f deployment.yaml
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
 ```
 
 #### Check Deployment & Pods
@@ -167,20 +158,16 @@ kubectl apply -f deployment.yaml
 kubectl get deployments
 kubectl get pods
 kubectl get services
+# or
+kubectl get all
 ```
 ---
 ### Step 6: Access the Application
 
-#### If using Minikube
-```sh
-minikube service <SERVICE_NAME>
-```
-
-#### If using a Cloud Kubernetes Cluster
+#### Using a Cloud Kubernetes Cluster
 ```sh
 kubectl get svc <SERVICE_NAME>
 ```
-
 
 ---
 ### Step 8: Delete Kubernetes Resources
@@ -204,9 +191,8 @@ kubectl delete service <SERVICE_NAME>
 This guide provides steps to deploy React applications (CRA & Vite) using Docker and Kubernetes. It covers:
 - Writing Dockerfiles for both development and production.
 - Building and running Docker containers.
-- Pushing images to Docker Hub.
+- Pushing images to Docker Hub or AWS ECR.
 - Creating Kubernetes deployment and service manifests.
 - Deploying and managing the application in Kubernetes.
 
 With this setup, you can efficiently deploy and scale React applications in a containerized environment.
-
