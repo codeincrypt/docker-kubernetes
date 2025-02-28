@@ -101,43 +101,19 @@ docker push <USERNAME>/project
 
 ### Step 4: Create Kubernetes Deployment & Service
 
-**Deployment YAML (Vite & CRA):**
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: react-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: react-app
-  template:
-    metadata:
-      labels:
-        app: react-app
-    spec:
-      containers:
-        - name: react-app
-          image: username/react-app:latest
-          ports:
-            - containerPort: 80
-```
+**Deployment YML:**
 
-**Service YAML:**
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: react-app-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: react-app
-  ports:
-    - port: 80
-      targetPort: 80
-```
+Go to [deployment.yml](https://github.com/codeincrypt/docker-kubernetes/blob/main/deploy/deployment.yml)
+
+
+**Service YML:**
+
+Go to [service.yml](https://github.com/codeincrypt/docker-kubernetes/blob/main/deploy/service.yml)
+
+
+**Ingress YML:**
+
+Go to [ingress.yml](https://github.com/codeincrypt/docker-kubernetes/blob/main/deploy/ingress.yml)
 
 ---
 ### Step 5: Deploy to Kubernetes
