@@ -106,5 +106,5 @@ kubectl delete deployments <PROJECTNAME> -n <NAMESPACE>
 ```
 Delete Ingress command
 ```sh
-kubectl delete ingress eda-unified-ns-ingress --n <NAMESPACE>
+kubectl delete ingress <PROJECTNAME>-ns-ingress --n <NAMESPACE>
 ```
