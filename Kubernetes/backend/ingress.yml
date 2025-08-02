@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: PROJECTNAME-services-infra-ingress
+  namespace: PROJECTNAME-services
+  annotations:
+    alb.ingress.kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/subnets: SUBNET1,SUBNET2,SUBNET3
+    alb.ingress.kubernetes.io/group.name: PROJECTNAME-alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8080}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/tags: tag-id=TAG-NAME
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:XXXXXXXXXXX:certificate/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+spec:
+  ingressClassName: alb
+  rules:
+    - host: api.example.com
+      http:
+        paths:
+          - path: /services/microservices-endpoint
+            pathType: Prefix
+            backend:
+              service:
+                name: PROJECTNAME-svc
+                port:
+                  name: svcedas-port
